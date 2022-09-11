@@ -1,0 +1,17 @@
+ public Node isContains(T data){
+       return  isContains(root,data);
+    }
+
+    private Node isContains(Node root, T data) {
+        //递归到底的情况
+        if(root == null){
+            return null;
+        }
+        if(data.compareTo(root.data) ==0){
+            return root;
+        }else if(data.compareTo(root.data)>0){
+            return isContains(root.right,data);
+        }else{
+            return isContains(root.left,data);
+        }
+    }
