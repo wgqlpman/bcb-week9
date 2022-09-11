@@ -1,0 +1,33 @@
+  /**二叉搜索树的根节点 */
+    Node root;
+
+    /**
+     * 将val添加到二叉搜索树中合适的位置
+     * @param val 要插入的值
+     */
+    public void add(T val){
+
+      root = add(root,val);
+    }
+    /**
+     * 使用递归进行添加
+     * @param root
+     * @param val
+     * @return
+     */
+    private Node add(Node root, T val) {
+        //递归到底情况
+        if(null == root){
+            Node node = new Node(val);
+            return node;
+        }
+
+        //递归操作
+        if(val.compareTo(root.data) > 0){
+           root.right =  add(root.right,val);
+        }else{
+           root.left =  add(root.left, val);
+        }
+        return root;
+    }
+
