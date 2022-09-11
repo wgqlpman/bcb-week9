@@ -1,0 +1,76 @@
+/**
+     * 删除树中值为data的节点
+     * @param data
+     * @return
+     */
+    public Node remove(T data){
+        /*树为空，不删*/
+        if(root ==null){
+            return  null;
+        }
+        /*找到删除的节点*/
+        Node delNode = isContains(data);
+        if(delNode !=null){
+            //删除操作
+           root =  remove(data,root);
+           return delNode;
+        }else{
+            return null;
+        }
+
+
+    }
+
+    private Node remove(T data, Node node) {
+        //递归到底
+        if(data.equals(node.data)){
+            //1.要删除的节点只有左子树
+            if(node.right ==null){
+                Node delNode = node.left;
+                node.left =null;
+                return delNode;
+            }else  if(node.left ==null){
+                //2.要删除的节点只有右子树
+                Node delNode = node.right;
+                node.right = null;
+                return delNode;
+
+            }else{
+                //3.要删除的节点左子树和右子树都不为空
+                /**
+                 * 1.找到要删除节点的前驱/后继节点
+                 * 2.从树中删除前驱/后继节点
+                 * 3.用后继节点替换 node
+                 * 4.生成的新树返回
+                 */
+                Node backNode = mixNodeDG(node.right);
+                Node rootRight = mixNodeRemove(node.right);
+                backNode.left =node.left;
+                backNode.right = node.right;
+
+                node.left = node.right = null;
+
+                return backNode;
+            }
+        }
+
+        //递归操作
+        if(data.compareTo(node.data)>0){
+            node.right = remove(data,node.right);
+        }else {
+            node.left = remove(data,node.left);
+        }
+        return node;
+    }
+
+    private Node mixNodeRemove(Node node) {
+        if (node.left ==null){
+        Node rightNode  =  node.right;
+        node.right = null;
+        return rightNode;
+        }
+
+        node.left = mixNodeRemove(node.left);
+        return  node;
+    }
+
