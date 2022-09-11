@@ -1,0 +1,41 @@
+ //查找最小结点,一直向左找
+    public Node getMin(){
+        return getMin(root);
+    }
+
+    private Node getMin(Node node) {
+        if (node.leftNode==null){
+            return node;
+        }else {
+            getMin(node.leftNode);
+        }
+        return node;
+    }
+    //查找最大值结点
+    public Node getMax(){
+        return getMax(root);
+    }
+    private Node getMax(Node node) {
+        if (node.rightNode==null){
+            return node;
+        }else {
+            getMin(node.rightNode);
+        }
+        return node;
+    }
+      public Node mixNodeDG(){
+        if(root==null){
+            return null;
+        }
+      return  mixNodeDG(root);
+
+    }
+
+    private Node mixNodeDG(Node root) {
+        //递归到底
+        if(root.left ==null){
+            return root;
+        }
+
+        return mixNodeDG(root.left);
+    }
